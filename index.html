@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nursing Drug Calculator</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .calculator {
+            margin-top: 25px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            background: #2563eb;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        .result {
+            margin-top: 15px;
+            padding: 15px;
+            background: #e8f0fe;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .disclaimer {
+            margin-top: 30px;
+            font-size: 13px;
+            color: #555;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>💊 Nursing Drug Calculator</h1>
+
+    <p>
+        Calculate the amount of medication to administer using the basic dosage formula.
+    </p>
+
+    <div class="calculator">
+
+        <h2>Dosage Calculator</h2>
+
+        <label>Desired Dose</label>
+        <input type="number" id="desiredDose" placeholder="Example: 500">
+
+        <label>Available Dose</label>
+        <input type="number" id="availableDose" placeholder="Example: 250">
+
+        <label>Quantity</label>
+        <input type="number" id="quantity" placeholder="Example: 1">
+
+        <button onclick="calculateDosage()">Calculate</button>
+
+        <div class="result" id="result">
+            Enter values to calculate.
+        </div>
+
+    </div>
+
+    <div class="disclaimer">
+
+        <strong>Educational Disclaimer:</strong>
+
+        This calculator is intended for educational and practice purposes only.
+        Always verify medication orders and calculations according to clinical
+        guidelines and institutional policies.
+
+    </div>
+
+</div>
+
+<script>
+
+function calculateDosage() {
+
+    const desiredDose = parseFloat(
+        document.getElementById("desiredDose").value
+    );
+
+    const availableDose = parseFloat(
+        document.getElementById("availableDose").value
+    );
+
+    const quantity = parseFloat(
+        document.getElementById("quantity").value
+    );
+
+    if (
+        isNaN(desiredDose) ||
+        isNaN(availableDose) ||
+        isNaN(quantity) ||
+        availableDose === 0
+    ) {
+
+        document.getElementById("result").innerHTML =
+            "⚠️ Please enter valid numbers.";
+
+        return;
+    }
+
+    const result =
+        (desiredDose / availableDose) * quantity;
+
+    document.getElementById("result").innerHTML =
+        "Amount to Administer: <strong>" +
+        result.toFixed(2) +
+        "</strong>";
+
+}
+
+</script>
+
+</body>
+</html>
