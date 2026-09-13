@@ -3,51 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Nursing Drug Calculator</title>
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: Arial, sans-serif;
-            background: #f4f6f8;
             margin: 0;
-            padding: 20px;
+            background: #f4f6f8;
+            color: #1f2937;
         }
 
-        .container {
-            max-width: 700px;
-            margin: auto;
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        h1 {
+        header {
+            background: #2563eb;
+            color: white;
+            padding: 30px 20px;
             text-align: center;
         }
 
-        .calculator {
-            margin-top: 25px;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
+        header h1 {
+            margin: 0;
+            font-size: 32px;
         }
 
-        input {
+        header p {
+            margin-bottom: 0;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #1d4ed8;
+        }
+
+        label {
+            display: block;
+            margin-top: 12px;
+            font-weight: bold;
+        }
+
+        input,
+        select {
             width: 100%;
             padding: 12px;
-            margin: 8px 0;
-            box-sizing: border-box;
+            margin-top: 6px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 15px;
         }
 
         button {
             width: 100%;
+            margin-top: 18px;
             padding: 12px;
             border: none;
             border-radius: 6px;
             background: #2563eb;
             color: white;
             font-size: 16px;
+            font-weight: bold;
             cursor: pointer;
         }
 
@@ -58,102 +95,684 @@
         .result {
             margin-top: 15px;
             padding: 15px;
-            background: #e8f0fe;
             border-radius: 6px;
+            background: #e8f0fe;
             font-weight: bold;
+            min-height: 50px;
         }
 
         .disclaimer {
             margin-top: 30px;
-            font-size: 13px;
-            color: #555;
+            background: #fff7ed;
+            border-left: 5px solid #f97316;
+            padding: 20px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+
+            header h1 {
+                font-size: 26px;
+            }
+
+            .container {
+                padding: 12px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
         }
     </style>
 </head>
 
 <body>
 
-<div class="container">
+<header>
 
     <h1>💊 Nursing Drug Calculator</h1>
 
     <p>
-        Calculate the amount of medication to administer using the basic dosage formula.
+        A simple nursing calculation practice tool for educational purposes.
     </p>
 
-    <div class="calculator">
+</header>
 
-        <h2>Dosage Calculator</h2>
 
-        <label>Desired Dose</label>
-        <input type="number" id="desiredDose" placeholder="Example: 500">
+<div class="container">
 
-        <label>Available Dose</label>
-        <input type="number" id="availableDose" placeholder="Example: 250">
+<div class="grid">
 
-        <label>Quantity</label>
-        <input type="number" id="quantity" placeholder="Example: 1">
 
-        <button onclick="calculateDosage()">Calculate</button>
+<!-- DOSAGE CALCULATOR -->
 
-        <div class="result" id="result">
-            Enter values to calculate.
-        </div>
+<div class="card">
 
-    </div>
+<h2>💊 Dosage Calculator</h2>
 
-    <div class="disclaimer">
+<p>
+Formula: Desired Dose ÷ Available Dose × Quantity
+</p>
 
-        <strong>Educational Disclaimer:</strong>
+<label>Desired Dose</label>
 
-        This calculator is intended for educational and practice purposes only.
-        Always verify medication orders and calculations according to clinical
-        guidelines and institutional policies.
+<input
+type="number"
+id="desiredDose"
+placeholder="Example: 500"
+>
 
-    </div>
+
+<label>Available Dose</label>
+
+<input
+type="number"
+id="availableDose"
+placeholder="Example: 250"
+>
+
+
+<label>Quantity</label>
+
+<input
+type="number"
+id="quantity"
+placeholder="Example: 1"
+>
+
+
+<button onclick="calculateDosage()">
+
+Calculate Dosage
+
+</button>
+
+
+<div
+class="result"
+id="dosageResult"
+>
+
+Enter values to calculate.
 
 </div>
 
+</div>
+
+
+
+<!-- IV FLOW RATE -->
+
+<div class="card">
+
+<h2>💧 IV Flow Rate</h2>
+
+<p>
+Formula: Total Volume ÷ Time
+</p>
+
+
+<label>Total Volume (mL)</label>
+
+<input
+type="number"
+id="ivVolume"
+placeholder="Example: 1000"
+>
+
+
+<label>Time (hours)</label>
+
+<input
+type="number"
+id="ivTime"
+placeholder="Example: 8"
+>
+
+
+<button onclick="calculateIVFlow()">
+
+Calculate Flow Rate
+
+</button>
+
+
+<div
+class="result"
+id="ivResult"
+>
+
+Enter values to calculate.
+
+</div>
+
+</div>
+
+
+
+<!-- IV DRIP RATE -->
+
+<div class="card">
+
+<h2>💧 IV Drip Rate</h2>
+
+<p>
+Formula: Volume × Drop Factor ÷ Time in Minutes
+</p>
+
+
+<label>Total Volume (mL)</label>
+
+<input
+type="number"
+id="dripVolume"
+placeholder="Example: 1000"
+>
+
+
+<label>Time (hours)</label>
+
+<input
+type="number"
+id="dripTime"
+placeholder="Example: 8"
+>
+
+
+<label>Drop Factor (drops/mL)</label>
+
+<input
+type="number"
+id="dropFactor"
+placeholder="Example: 15"
+>
+
+
+<button onclick="calculateDripRate()">
+
+Calculate Drip Rate
+
+</button>
+
+
+<div
+class="result"
+id="dripResult"
+>
+
+Enter values to calculate.
+
+</div>
+
+</div>
+
+
+
+<!-- INFUSION TIME -->
+
+<div class="card">
+
+<h2>⏱️ Infusion Time</h2>
+
+<p>
+Formula: Total Volume ÷ Flow Rate
+</p>
+
+
+<label>Total Volume (mL)</label>
+
+<input
+type="number"
+id="infusionVolume"
+placeholder="Example: 1000"
+>
+
+
+<label>Flow Rate (mL/hr)</label>
+
+<input
+type="number"
+id="infusionRate"
+placeholder="Example: 125"
+>
+
+
+<button onclick="calculateInfusionTime()">
+
+Calculate Infusion Time
+
+</button>
+
+
+<div
+class="result"
+id="infusionResult"
+>
+
+Enter values to calculate.
+
+</div>
+
+</div>
+
+
+
+<!-- UNIT CONVERTER -->
+
+<div class="card">
+
+<h2>🔄 Unit Converter</h2>
+
+
+<label>Value</label>
+
+<input
+type="number"
+id="conversionValue"
+placeholder="Enter value"
+>
+
+
+<label>Conversion</label>
+
+<select id="conversionType">
+
+<option value="mg-g">
+mg → g
+</option>
+
+<option value="g-mg">
+g → mg
+</option>
+
+<option value="mcg-mg">
+mcg → mg
+</option>
+
+<option value="mg-mcg">
+mg → mcg
+</option>
+
+<option value="ml-l">
+mL → L
+</option>
+
+<option value="l-ml">
+L → mL
+</option>
+
+</select>
+
+
+<button onclick="convertUnits()">
+
+Convert
+
+</button>
+
+
+<div
+class="result"
+id="conversionResult"
+>
+
+Enter a value to convert.
+
+</div>
+
+</div>
+
+
+</div>
+
+
+<div class="disclaimer">
+
+<strong>⚠️ Educational Disclaimer</strong>
+
+<p>
+
+This calculator is intended for educational and practice purposes only.
+It must not be used as a substitute for clinical judgment, professional
+medical advice, or institution-approved medication calculation procedures.
+
+</p>
+
+<p>
+
+Always verify medication orders, units, patient information, and calculations
+according to your institution's policies and clinical guidelines.
+
+</p>
+
+</div>
+
+
+</div>
+
+
+<footer>
+
+Nursing Drug Calculator • Educational Practice Tool
+
+</footer>
+
+
+
 <script>
+
+
+/* DOSAGE CALCULATOR */
 
 function calculateDosage() {
 
-    const desiredDose = parseFloat(
-        document.getElementById("desiredDose").value
-    );
+    const desired =
+        parseFloat(
+            document.getElementById("desiredDose").value
+        );
 
-    const availableDose = parseFloat(
-        document.getElementById("availableDose").value
-    );
+    const available =
+        parseFloat(
+            document.getElementById("availableDose").value
+        );
 
-    const quantity = parseFloat(
-        document.getElementById("quantity").value
-    );
+    const quantity =
+        parseFloat(
+            document.getElementById("quantity").value
+        );
+
 
     if (
-        isNaN(desiredDose) ||
-        isNaN(availableDose) ||
+        isNaN(desired) ||
+        isNaN(available) ||
         isNaN(quantity) ||
-        availableDose === 0
+        available <= 0
     ) {
 
-        document.getElementById("result").innerHTML =
-            "⚠️ Please enter valid numbers.";
+        document.getElementById("dosageResult").innerHTML =
+            "⚠️ Please enter valid values.";
 
         return;
+
     }
 
-    const result =
-        (desiredDose / availableDose) * quantity;
 
-    document.getElementById("result").innerHTML =
+    const answer =
+        (desired / available) * quantity;
+
+
+    document.getElementById("dosageResult").innerHTML =
         "Amount to Administer: <strong>" +
-        result.toFixed(2) +
+        answer.toFixed(2) +
         "</strong>";
 
 }
 
+
+
+/* IV FLOW RATE */
+
+function calculateIVFlow() {
+
+    const volume =
+        parseFloat(
+            document.getElementById("ivVolume").value
+        );
+
+    const time =
+        parseFloat(
+            document.getElementById("ivTime").value
+        );
+
+
+    if (
+        isNaN(volume) ||
+        isNaN(time) ||
+        time <= 0
+    ) {
+
+        document.getElementById("ivResult").innerHTML =
+            "⚠️ Please enter valid values.";
+
+        return;
+
+    }
+
+
+    const rate =
+        volume / time;
+
+
+    document.getElementById("ivResult").innerHTML =
+        "IV Flow Rate: <strong>" +
+        rate.toFixed(2) +
+        " mL/hr</strong>";
+
+}
+
+
+
+/* IV DRIP RATE */
+
+function calculateDripRate() {
+
+    const volume =
+        parseFloat(
+            document.getElementById("dripVolume").value
+        );
+
+    const time =
+        parseFloat(
+            document.getElementById("dripTime").value
+        );
+
+    const factor =
+        parseFloat(
+            document.getElementById("dropFactor").value
+        );
+
+
+    if (
+        isNaN(volume) ||
+        isNaN(time) ||
+        isNaN(factor) ||
+        time <= 0 ||
+        factor <= 0
+    ) {
+
+        document.getElementById("dripResult").innerHTML =
+            "⚠️ Please enter valid values.";
+
+        return;
+
+    }
+
+
+    const minutes =
+        time * 60;
+
+
+    const drops =
+        (volume * factor) / minutes;
+
+
+    document.getElementById("dripResult").innerHTML =
+        "IV Drip Rate: <strong>" +
+        Math.round(drops) +
+        " drops/min</strong>";
+
+}
+
+
+
+/* INFUSION TIME */
+
+function calculateInfusionTime() {
+
+    const volume =
+        parseFloat(
+            document.getElementById("infusionVolume").value
+        );
+
+    const rate =
+        parseFloat(
+            document.getElementById("infusionRate").value
+        );
+
+
+    if (
+        isNaN(volume) ||
+        isNaN(rate) ||
+        rate <= 0
+    ) {
+
+        document.getElementById("infusionResult").innerHTML =
+            "⚠️ Please enter valid values.";
+
+        return;
+
+    }
+
+
+    const hours =
+        volume / rate;
+
+
+    const wholeHours =
+        Math.floor(hours);
+
+
+    const minutes =
+        Math.round(
+            (hours - wholeHours) * 60
+        );
+
+
+    document.getElementById("infusionResult").innerHTML =
+        "Infusion Time: <strong>" +
+        wholeHours +
+        " hour(s) and " +
+        minutes +
+        " minute(s)</strong>";
+
+}
+
+
+
+/* UNIT CONVERTER */
+
+function convertUnits() {
+
+    const value =
+        parseFloat(
+            document.getElementById("conversionValue").value
+        );
+
+    const type =
+        document.getElementById("conversionType").value;
+
+
+    if (isNaN(value)) {
+
+        document.getElementById("conversionResult").innerHTML =
+            "⚠️ Please enter a valid value.";
+
+        return;
+
+    }
+
+
+    let result;
+    let unit;
+
+
+    if (type === "mg-g") {
+
+        result =
+            value / 1000;
+
+        unit =
+            "g";
+
+    }
+
+
+    else if (type === "g-mg") {
+
+        result =
+            value * 1000;
+
+        unit =
+            "mg";
+
+    }
+
+
+    else if (type === "mcg-mg") {
+
+        result =
+            value / 1000;
+
+        unit =
+            "mg";
+
+    }
+
+
+    else if (type === "mg-mcg") {
+
+        result =
+            value * 1000;
+
+        unit =
+            "mcg";
+
+    }
+
+
+    else if (type === "ml-l") {
+
+        result =
+            value / 1000;
+
+        unit =
+            "L";
+
+    }
+
+
+    else if (type === "l-ml") {
+
+        result =
+            value * 1000;
+
+        unit =
+            "mL";
+
+    }
+
+
+    document.getElementById("conversionResult").innerHTML =
+        "Result: <strong>" +
+        result +
+        " " +
+        unit +
+        "</strong>";
+
+}
+
+
 </script>
+
 
 </body>
 </html>
